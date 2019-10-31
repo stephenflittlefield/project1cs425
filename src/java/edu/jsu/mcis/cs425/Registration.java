@@ -6,6 +6,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 
 public class Registration extends HttpServlet {
 
@@ -32,7 +34,28 @@ public class Registration extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        //processRequest(request, response);
+        response.setContentType("application/json;charset=UTF-8");
+        
+        try {
+            
+            PrintWriter out = response.getWriter();
+            
+            String firstname = request.getParameter("firstname");
+            String lastname = request.getParameter("lastname");
+            String displayname = request.getParameter("displayname");
+            int sessionid = Integer.parseInt(request.getParameter("sessionid"));
+            
+            Database db = new Database();
+            
+            JSONObject json = new JSONObject();
+            json.put("displayname", displayname);
+            json.put("code", db.addRegistration(firstname, lastname, displayname, sessionid));
+            
+            out.println(JSONValue.toJSONString(json));
+            
+        }
+        catch (Exception e) { e.printStackTrace(); }
+        
         
     }
 

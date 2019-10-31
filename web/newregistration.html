@@ -19,14 +19,22 @@
            <a href="newregistration.html">Register New Attendee</a>
        </p>
 
-      <form name="searchform" id="searchform" action="#">
+      <form name="registrationform" id="registrationform" action="#">
 
          <fieldset>
              
-            <legend>Search Attendees by Session</legend>
-
-            <label for="sessionid">Session:</label>
+            <legend>Register New Attendee</legend>
             
+            <label for="firstname">First Name:</label>
+            <input type="text" name="firstname" id="firstname"><br />
+            
+            <label for="lastname">Last Name:</label>
+            <input type="text" name="lastname" id="lastname"><br />
+            
+            <label for="displayname">Display Name:</label>
+            <input type="text" name="displayname" id="displayname"><br />
+            
+            <label for="sessionid">Session:</label>            
             <select name="sessionid" id="sessionid">
                 <option value="1" selected>Session 1</option>
                 <option value="2">Session 2</option>
@@ -34,7 +42,7 @@
                 <option value="4">Session 4</option>
             </select>
 
-            <input type="button" value="Submit" onclick="Project1.submitSessionSearch();">
+            <input type="button" value="Submit" onclick="Project1.submitRegisterAttendee();">
 
          </fieldset>
 

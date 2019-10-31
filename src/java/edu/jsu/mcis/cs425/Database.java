@@ -61,6 +61,55 @@ public class Database {
         
     }
     
+    public String addRegistration(String fname, String lname, String dname, int sessionid) {
+        
+        String result = "";
+        
+        try {
+        
+            Connection connection = getConnection();
+            
+            int key = 0, result = 0;            
+            
+            ResultSet keys;
+            String sql= "INSERT INTO event (firstname, lastname, displayname, sessionid) VALUES (?,?,?,?)";
+            PreparedStatement ps = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+            ps.setString(1, firstname);
+            ps.setString(2, lastname);
+            ps.setString(3, displayname);
+            ps.setInt(4, sessionid);
+            result = ps.executeUpdate();
+            if (result == 1) {
+                keys = ps.getGeneratedKeys();}
+                    if (keys.next()) {
+                        key = keys.getInt(1);
+                    }
+                
+            /*String query = "SELECT * FROM registrations WHERE sessionid = ?";
+
+            PreparedStatement pstatement = connection.prepareStatement(query);
+            pstatement.setInt(1, sessionid);
+
+            boolean hasresults = pstatement.execute();
+                
+            if ( hasresults ) {
+                
+                ResultSet resultset = pstatement.getResultSet();
+                result += getResultSetTable(resultset);
+                
+            }*/
+            
+            //int key = 1; // remove this later!  (Replace it with the key from the database.)
+            
+            result = "R" + String.format("%06d", key);
+            //console.log(result);
+        }        
+        catch (Exception e) { e.printStackTrace(); }
+        
+        return result;
+        
+    }
+    
     public String getResultSetTable(ResultSet resultset) {
         
         ResultSetMetaData metadata = null;
