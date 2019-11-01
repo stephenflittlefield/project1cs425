@@ -69,21 +69,22 @@ public class Database {
         
             Connection connection = getConnection();
             
-            int key = 0, result = 0;            
-            
+            int key = 0, rows = 0;            
+           
             ResultSet keys;
-            String sql= "INSERT INTO event (firstname, lastname, displayname, sessionid) VALUES (?,?,?,?)";
-            PreparedStatement ps = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-            ps.setString(1, firstname);
-            ps.setString(2, lastname);
-            ps.setString(3, displayname);
+            String sql= "INSERT INTO registrations (firstname, lastname, displayname, sessionid) VALUES (?,?,?,?)";
+            PreparedStatement ps = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+            ps.setString(1, fname);
+            ps.setString(2, lname);
+            ps.setString(3, dname);
             ps.setInt(4, sessionid);
-            result = ps.executeUpdate();
-            if (result == 1) {
-                keys = ps.getGeneratedKeys();}
+            rows = ps.executeUpdate();
+            if (rows == 1) {
+                keys = ps.getGeneratedKeys();
                     if (keys.next()) {
                         key = keys.getInt(1);
                     }
+            }
                 
             /*String query = "SELECT * FROM registrations WHERE sessionid = ?";
 
